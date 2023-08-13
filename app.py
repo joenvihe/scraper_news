@@ -124,7 +124,6 @@ def scrape_website(website_code):
         data = response.json()
         json_list = []
         for valores in data["content_elements"]:
-            print(valores)
             json_result = {
             "periodico": "elcomercio",
             "seccion": "politica",
@@ -137,7 +136,6 @@ def scrape_website(website_code):
             "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
-            # Convertir el diccionario a una cadena JSON
             json_str = json.dumps(json_list)
             json_list.append(json_str)
         add_db(json_list)
