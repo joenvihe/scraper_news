@@ -68,6 +68,7 @@ def scrape_website(website_code):
         data = response.json()
 
         for valores in data["content_elements"]:
+            print(valores)
             json_result = {
             "periodico": "elcomercio",
             "seccion": "politica",
@@ -81,6 +82,7 @@ def scrape_website(website_code):
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
             print(json_result)
+            break
 
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
