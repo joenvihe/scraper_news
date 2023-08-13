@@ -81,9 +81,7 @@ def scrape_website(website_code):
             "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
-            print(json_result)
-            break
-
+            
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
 
