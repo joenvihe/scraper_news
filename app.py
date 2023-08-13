@@ -72,10 +72,13 @@ def add_db(json_list):
             "password": os.environ["HEROKU_PASSWORD"]
         }
         # Establecer conexión a la base de datos
+        print("1")
         connection = psycopg2.connect(**db_params)
+        print("2")
         cursor = connection.cursor()
 
         # Preparar la consulta de inserción
+        print("3")
         insert_query = """
             INSERT INTO public.noticias (
                 periodico,
@@ -102,10 +105,14 @@ def add_db(json_list):
             )
         """
         # Insertar los datos de manera masiva
+        print("4")
         cursor.executemany(insert_query, json_list)
         # Confirmar y cerrar la conexión
+        print("5")
         connection.commit()
+        print("6")
         cursor.close()
+        print("7")
         connection.close()
     except Exception as e:
         print(e)
