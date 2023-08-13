@@ -142,7 +142,7 @@ def scrape_website(website_code):
             "display_date": valores["display_date"],
             "headlines_basic": valores["headlines"]["basic"],
             "subheadlines_basic": valores["subheadlines"]["basic"],
-            "taxonomy_seo_keywords": string(valores["taxonomy"]),
+            "taxonomy_seo_keywords": str(valores["taxonomy"]),
             "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
