@@ -151,7 +151,7 @@ def scrape_website(website_code,v_cantidad):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print('Uso: python script.py <código_del_sitio_web>')
     else:
         website_code = sys.argv[1]
