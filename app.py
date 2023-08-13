@@ -32,10 +32,10 @@ headers_larepublica = {
 
 
 
-#ur de 100 en 100....
+#ur de hice 0,100, 500....VAL_STRING_CANTIDAD
 url_elcomercio = "https://elcomercio.pe/pf/api/v3/content/fetch/story-feed-by-section"
 params_elcomercio = {
-    "query": '''{"feedOffset":100,
+    "query": '''{"feedOffset":VAL_STRING_CANTIDAD,
                   "includedFields":"&_sourceInclude=websites.elcomercio.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,credits.by._id,credits.by.name,credits.by.url,credits.by.type,credits.by.image.url,websites.elcomercio.website_section.path,websites.elcomercio.website_section.name,taxonomy.sections.path,taxonomy.sections._id,taxonomy.sections.name,promo_items.basic.type,promo_items.basic.url,promo_items.basic.width,promo_items.basic.height,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.type,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content,promo_items.basic_html,promo_items.basic_jwplayer.type,promo_items.basic_jwplayer.subtype,promo_items.basic_jwplayer.embed,promo_items.basic_jwplayer.embed.config,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls,promo_items.basic_jwplayer.embed.config.key,promo_items.basic_html.content",
                   "presets":"landscape_s:234x161,landscape_xs:118x72",
                   "section":"/politica",
@@ -114,8 +114,9 @@ def add_db(json_list):
 # CODIGO DE SCRAPEO E INSERT A LA BD
 #####################################################################################
 
-def scrape_website(website_code):
+def scrape_website(website_code,v_cantidad):
     if website_code == 'elcomercio':
+        params_elcomercio["query"] =  params_elcomercio["query"].replace("VAL_STRING_CANTIDAD",str(v_cantidad))
         response = requests.get(url_elcomercio, params=params_elcomercio, headers=headers_elcomercio)
         data = response.json()
         json_list = []
@@ -154,4 +155,5 @@ if __name__ == '__main__':
         print('Uso: python script.py <código_del_sitio_web>')
     else:
         website_code = sys.argv[1]
-        scrape_website(website_code)
+        v_cantidad = sys.argv[2]
+        scrape_website(website_code,v_cantidad)
