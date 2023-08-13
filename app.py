@@ -66,8 +66,22 @@ def scrape_website(website_code):
 
     if response.status_code == 200:
         data = response.json()
-        print('Datos extraídos y guardados en datos_extraidos.csv')
-        print(data)
+
+        for valores in data["content_elements"]:
+            json_result = {
+            "periodico": "elcomercio",
+            "seccion": "politica",
+            "_id": valores["_id"],
+            "canonical_url": valores["websites"]["website_url"],
+            "display_date": valores["display_date"],
+            "headlines_basic": valores["headlines"]["basic"],
+            "subheadlines_basic": valores["subheadlines"]["basic"],
+            "taxonomy_seo_keywords": valores["taxonomy"],
+            "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
+            "_type": valores["taxonomy"]["sections"][0]["name"]
+            }
+            print(json_result)
+
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
 
