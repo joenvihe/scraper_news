@@ -106,6 +106,7 @@ def add_db(json_list):
         """
         # Insertar los datos de manera masiva
         print("4")
+        print(json_list)
         cursor.executemany(insert_query, json_list)
         # Confirmar y cerrar la conexión
         print("5")
