@@ -146,10 +146,9 @@ def scrape_website(website_code):
             "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
-            print("c")
             json_str = json.dumps(json_result)
+            print(json_str)
             json_list.append(json_str)
-        print("ddddd")
         add_db(json_list)
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
