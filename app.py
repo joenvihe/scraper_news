@@ -5,6 +5,8 @@ import csv
 import requests
 import psycopg2
 import os
+import json
+
 
 # 6000 tiene solo titulares
 ########################################################################################
@@ -135,7 +137,9 @@ def scrape_website(website_code):
             "taxonomy_tags": valores["taxonomy"]["sections"][0]["path"],
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
-            json_list.append(json_result)
+            # Convertir el diccionario a una cadena JSON
+            json_str = json.dumps(json_list)
+            json_list.append(json_str)
         add_db(json_list)
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
