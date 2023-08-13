@@ -35,7 +35,7 @@ headers_larepublica = {
 #ur de 100 en 100....
 url_elcomercio = "https://elcomercio.pe/pf/api/v3/content/fetch/story-feed-by-section"
 params_elcomercio = {
-    "query": '''{"feedOffset":500,
+    "query": '''{"feedOffset":0,
                   "includedFields":"&_sourceInclude=websites.elcomercio.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,credits.by._id,credits.by.name,credits.by.url,credits.by.type,credits.by.image.url,websites.elcomercio.website_section.path,websites.elcomercio.website_section.name,taxonomy.sections.path,taxonomy.sections._id,taxonomy.sections.name,promo_items.basic.type,promo_items.basic.url,promo_items.basic.width,promo_items.basic.height,promo_items.basic.resized_urls,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_gallery.promo_items.basic.url,promo_items.basic_gallery.promo_items.basic.type,promo_items.basic_gallery.promo_items.basic.resized_urls,promo_items.youtube_id.content,promo_items.basic_html,promo_items.basic_jwplayer.type,promo_items.basic_jwplayer.subtype,promo_items.basic_jwplayer.embed,promo_items.basic_jwplayer.embed.config,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls,promo_items.basic_jwplayer.embed.config.key,promo_items.basic_html.content",
                   "presets":"landscape_s:234x161,landscape_xs:118x72",
                   "section":"/politica",
@@ -117,13 +117,6 @@ def add_db(json_list):
 def scrape_website(website_code):
     if website_code == 'elcomercio':
         response = requests.get(url_elcomercio, params=params_elcomercio, headers=headers_elcomercio)
-    elif website_code == 'larepublica':
-        response = requests.get(url_larepublica, headers=headers_larepublica)
-    else:
-        print('Código de sitio web no válido')
-        return
-
-    if response.status_code == 200:
         data = response.json()
         json_list = []
         for valores in data["content_elements"]:
@@ -140,6 +133,13 @@ def scrape_website(website_code):
             "_type": str(valores["taxonomy"]["sections"][0]["name"])
             }
             json_list.append(json_result)
+    elif website_code == 'larepublica':
+        response = requests.get(url_larepublica, headers=headers_larepublica)
+    else:
+        print('Código de sitio web no válido')
+        return
+
+    if response.status_code == 200:
         add_db(json_list)
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
