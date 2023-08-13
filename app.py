@@ -73,7 +73,7 @@ def scrape_website(website_code):
             "periodico": "elcomercio",
             "seccion": "politica",
             "_id": valores["_id"],
-            "canonical_url": valores["websites"]["website_url"],
+            "canonical_url": valores["taxonomy"]["websites"]["website_url"],
             "display_date": valores["display_date"],
             "headlines_basic": valores["headlines"]["basic"],
             "subheadlines_basic": valores["subheadlines"]["basic"],
