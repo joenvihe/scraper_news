@@ -147,7 +147,7 @@ def scrape_website(website_code):
             "_type": valores["taxonomy"]["sections"][0]["name"]
             }
             print("c")
-            json_str = json.dumps(json_list)
+            json_str = json.dumps(json_result)
             json_list.append(json_str)
         print("ddddd")
         add_db(json_list)
