@@ -64,48 +64,51 @@ headers_elcomercio = {
 # CODIGO PARA INSERTA A LA BD
 #####################################################################################
 def add_db(json_list):
-    db_params = {
-        "host": os.environ["HEROKU_HOST"],
-        "database": os.environ["HEROKU_DATABASE"],
-        "user": os.environ["HEROKU_USER"],
-        "password": os.environ["HEROKU_PASSWORD"]
-    }
-    # Establecer conexión a la base de datos
-    connection = psycopg2.connect(**db_params)
-    cursor = connection.cursor()
+    try:
+        db_params = {
+            "host": os.environ["HEROKU_HOST"],
+            "database": os.environ["HEROKU_DATABASE"],
+            "user": os.environ["HEROKU_USER"],
+            "password": os.environ["HEROKU_PASSWORD"]
+        }
+        # Establecer conexión a la base de datos
+        connection = psycopg2.connect(**db_params)
+        cursor = connection.cursor()
 
-    # Preparar la consulta de inserción
-    insert_query = """
-        INSERT INTO public.noticias (
-            periodico,
-            seccion,
-            _id,
-            canonical_url,
-            display_date,
-            headlines_basic,
-            subheadlines_basic,
-            taxonomy_seo_keywords,
-            taxonomy_tags,
-            _type
-        ) VALUES (
-            %(periodico)s,
-            %(seccion)s,
-            %(_id)s,
-            %(canonical_url)s,
-            %(display_date)s,
-            %(headlines_basic)s,
-            %(subheadlines_basic)s,
-            %(taxonomy_seo_keywords)s,
-            %(taxonomy_tags)s,
-            %(_type)s
-        )
-    """
-    # Insertar los datos de manera masiva
-    cursor.executemany(insert_query, json_list)
-    # Confirmar y cerrar la conexión
-    connection.commit()
-    cursor.close()
-    connection.close()
+        # Preparar la consulta de inserción
+        insert_query = """
+            INSERT INTO public.noticias (
+                periodico,
+                seccion,
+                _id,
+                canonical_url,
+                display_date,
+                headlines_basic,
+                subheadlines_basic,
+                taxonomy_seo_keywords,
+                taxonomy_tags,
+                _type
+            ) VALUES (
+                %(periodico)s,
+                %(seccion)s,
+                %(_id)s,
+                %(canonical_url)s,
+                %(display_date)s,
+                %(headlines_basic)s,
+                %(subheadlines_basic)s,
+                %(taxonomy_seo_keywords)s,
+                %(taxonomy_tags)s,
+                %(_type)s
+            )
+        """
+        # Insertar los datos de manera masiva
+        cursor.executemany(insert_query, json_list)
+        # Confirmar y cerrar la conexión
+        connection.commit()
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e)
 
 #####################################################################################
 # CODIGO DE SCRAPEO E INSERT A LA BD
