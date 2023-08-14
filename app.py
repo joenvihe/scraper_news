@@ -36,6 +36,7 @@ def update_larepublica(fila):
     contenido = ""
     try:
         response = requests.get(url, headers=headers)
+        print(response.status_code)
         if response.status_code == 200:
             html_code = response.text
         else:
