@@ -13,7 +13,7 @@ import json
 # PARAMETROS DE LAS URLS A SCRAPEAR
 ########################################################################################
 url_larepublica = "https://larepublica.pe/api/search/articles?category_slug=politica&limit=100&page=VALOR_LAREPUBLICA&order_by=update_date"
-
+print(url_larepublica)
 headers_larepublica = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
     "Accept": "*/*",
