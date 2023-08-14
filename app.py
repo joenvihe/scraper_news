@@ -26,7 +26,7 @@ def update_db(periodico,id,contenido):
         UPDATE public.noticias
         SET contenido = '{}'
         WHERE periodico = '{}' and _id = '{}';
-    """.format(periodico,id,sql.Literal(contenido))
+    """.format(sql.Literal(contenido),periodico,id)
 
     # Ejecutar la consulta de actualización
     cursor.execute(update_query)
