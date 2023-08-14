@@ -65,8 +65,7 @@ def update_elcomercio(fila):
     }
     html_code = ""
     try:
-        response = requests.get(url, headers=headers)
-        print(response.status_code)
+        response = requests.get(url, headers=headers) 
         if response.status_code == 200:
             html_code = response.text
         else:
@@ -82,7 +81,6 @@ def update_elcomercio(fila):
             # Obtener el texto del tag <article>
             article_text = article_tag.get_text()
             # Imprimir el contenido del texto del tag <article>
-            print(article_text)
             if len(article_text)>0:
                 update_db(fila[0],fila[1],article_text)
         
@@ -114,8 +112,7 @@ def update_larepublica(fila):
     }
     html_code = ""
     try:
-        response = requests.get(url, headers=headers)
-        print(response.status_code)
+        response = requests.get(url, headers=headers) 
         if response.status_code == 200:
             html_code = response.text
         else:
@@ -152,7 +149,7 @@ def select_db():
     cursor = conn.cursor()
 
     # Definir la consulta SQL
-    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null LImit 1000"
+    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null LImit 30000"
 
     # Ejecutar la consulta
     cursor.execute(query)
