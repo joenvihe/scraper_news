@@ -33,7 +33,7 @@ def update_larepublica(fila):
         "Upgrade-Insecure-Requests": "1",
         # Añade más encabezados aquí si es necesario
     }
-    contenido = ""
+    html_code = ""
     try:
         response = requests.get(url, headers=headers)
         print(response.status_code)
@@ -45,7 +45,7 @@ def update_larepublica(fila):
     except requests.exceptions.RequestException as e:
         print("Error de conexión:", e)
 
-    if len(contenido)>0: 
+    if len(html_code)>0: 
         #update_db(fila[0],fila[1]contenido)
         soup = BeautifulSoup(html_code, 'html.parser')
         article_tag = soup.find('article')
