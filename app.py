@@ -7,6 +7,39 @@ import psycopg2
 import os
 import json
 
+
+def update_db(periodico,id,contenido):
+    # Establecer la conexión a la base de datos
+    conn = psycopg2.connect(
+        dbname= os.environ["HEROKU_DATABASE"],
+        user= os.environ["HEROKU_USER"],
+        password= os.environ["HEROKU_PASSWORD"],
+        host= os.environ["HEROKU_HOST"],  # o la dirección del servidor
+        port="5432"  # el puerto de PostgreSQL
+    )
+
+    # Crear un cursor
+    cursor = conn.cursor()
+
+    # Definir la consulta SQL de actualización
+    update_query = """
+        UPDATE public.noticas
+        SET contenido = '{}'
+        WHERE periodico = '{}' and _id = '{}';
+    """.format(periodico,id,contenido)
+
+    # Ejecutar la consulta de actualización
+    cursor.execute(update_query)
+
+    # Confirmar los cambios en la base de datos
+    conn.commit()
+
+    # Cerrar el cursor y la conexión
+    cursor.close()
+    conn.close()
+
+    return ""
+
 def update_elcomercio(fila):
     return ""
 
@@ -45,7 +78,6 @@ def update_larepublica(fila):
         print("Error de conexión:", e)
 
     if len(html_code)>0: 
-        #update_db(fila[0],fila[1]contenido)
         soup = BeautifulSoup(html_code, 'html.parser')
         article_tag = soup.find('article')
         # Verificar si se encontró el tag <article>
@@ -53,7 +85,9 @@ def update_larepublica(fila):
             # Obtener el texto del tag <article>
             article_text = article_tag.get_text()
             # Imprimir el contenido del texto del tag <article>
-            print(article_text)
+            #print(article_text)
+            update_db(fila[0],fila[1],article_text)
+        
     return ""
 
 # 6000 tiene solo titulares
