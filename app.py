@@ -78,13 +78,13 @@ def update_elcomercio(fila):
         soup = BeautifulSoup(html_code, 'html.parser')
         article_tag = soup.find('div',class_='st-sidebar__main')
         # Verificar si se encontró el tag <article>
-        print(article_tag)
-        if len(article_tag.strip()):
+        if article_tag:
             # Obtener el texto del tag <article>
             article_text = article_tag.get_text()
             # Imprimir el contenido del texto del tag <article>
-            #print(article_text)
-            update_db(fila[0],fila[1],article_text)
+            print(article_text)
+            if len(article_text)>0:
+                update_db(fila[0],fila[1],article_text)
         
     return ""
 
