@@ -39,7 +39,6 @@ def update_larepublica(fila):
         print(response.status_code)
         if response.status_code == 200:
             html_code = response.text
-            print(html_code)
         else:
             print("Error al obtener la página:", response.status_code)
     except requests.exceptions.RequestException as e:
