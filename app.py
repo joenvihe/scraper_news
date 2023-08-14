@@ -23,7 +23,7 @@ def update_db(periodico,id,contenido):
 
     # Definir la consulta SQL de actualización
     update_query = """
-        UPDATE public.noticas
+        UPDATE public.noticias
         SET contenido = '{}'
         WHERE periodico = '{}' and _id = '{}';
     """.format(periodico,id,contenido)
