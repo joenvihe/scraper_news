@@ -141,6 +141,11 @@ def scrape_website(website_code,v_cantidad):
             except Exception as e:
                 val_sh = str(valores["title"])
                 print(e)
+            try:
+                val_t = str(valores["data"]["tags"][0]["name"])
+            except Exception as e:
+                val_t = str(valores["data"])
+                print(e)
             json_result = {
             "periodico": "larepublica",
             "seccion": "politica",
@@ -149,7 +154,7 @@ def scrape_website(website_code,v_cantidad):
             "display_date": valores["update_date"],
             "headlines_basic": str(valores["title"]),
             "subheadlines_basic": val_sh,
-            "taxonomy_seo_keywords": str(valores["data"]),
+            "taxonomy_seo_keywords": val_t,
             "taxonomy_tags": str(valores["data"]),
             "_type": str(valores["type"])
             }
