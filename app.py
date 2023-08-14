@@ -135,6 +135,7 @@ def scrape_website(website_code,v_cantidad):
             }
             json_list.append(json_result)
     elif website_code == 'larepublica':
+        print(url_larepublica)
         url_larepublica = url_larepublica.replace("VALOR_LAREPUBLICA",str(v_cantidad))
         print(url_larepublica)
         response = requests.get(url_larepublica, headers=headers_larepublica)
