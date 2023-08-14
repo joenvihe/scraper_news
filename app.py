@@ -41,7 +41,52 @@ def update_db(periodico,id,contenido):
     return ""
 
 def update_elcomercio(fila):
+    #('larepublica', '2Q2K7XOXCFEU3IEHS5NGEKX2NM', '/economia/2021/04/10/expectativas-de-inflacion-se-mantienen-en-el-rango-meta/')
+    url = "https://elcomercio.pe{}".format(fila[2])
+    print(url)
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "es,es-ES;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "Cache-Control": "max-age=0",
+        "Cookie": "_tfpvi=NDgxYjg2ZGQtYWE1Ny00MDYyLTk5OGQtNTkzYmZiZjYzMDhjIzgtNA%3D%3D; __AP_SESSION__=134ca4a3-5d3a-491d-a523-08985428362f; ___nrbi=%7B%22firstVisit%22%3A1691902055%2C%22userId%22%3A%22a32a0723-0896-4e5b-b0df-32e785142c6f%22%2C%22userVars%22%3A%5B%5D%2C%22futurePreviousVisit%22%3A1691902055%2C%22timesVisited%22%3A1%7D; compass_uid=a32a0723-0896-4e5b-b0df-32e785142c6f; __qca=P0-854938016-1691902056641; _gid=GA1.2.1692692428.1691902057; _cc_id=68aee879e13885ef4f30f9d599aafebb; panoramaId_expiry=1691988460480; panoramaId=06e11c145f156512a7fac596616da9fb927a1827211ef3382209e54034793228; panoramaIdType=panoDevice; cto_bundle=hUyqO18zekJlWUgzVlhTVU4lMkJ6S0dpcUQ5Q1JHa2VGN3BWVldJOU1XSklCeTNoUWpRdXU5UDd4JTJGbmZsUmV1M3UzQnRtWXdGMnd0c1FqTWt3NjNqNFZMUHp0aFJaNjYyV3BCaTZCeVpKSkZpaiUyRkw2SkJvZXlONDRhQTd2UExzUmxISFB1NTVGOFQ3aFBoNWZXZjU1NHg4Q3pNQXclM0QlM0Q; __gads=ID=a16992f89fbf6d0a:T=1691902062:RT=1691902062:S=ALNI_MaJzT67vWrxffnxAkZ-KYEYR7gU4Q; __gpi=UID=000009fa85e2cd40:T=1691902062:RT=1691902062:S=ALNI_MZvHm-kYPkUvg1tE8fiYYjWhF6jIw; TAPAD=%7B%22id%22%3A%22b51f3542-b673-43a8-8250-5b74cf37a8fa%22%7D; _pbjs_userid_consent_data=3524755945110770; ___nrbic=%7B%22previousVisit%22%3A1691902055%2C%22currentVisitStarted%22%3A1691902055%2C%22sessionId%22%3A%221b08d98d-a6a6-445a-8ff6-8cf6e59a8f92%22%2C%22sessionVars%22%3A%5B%5D%2C%22visitedInThisSession%22%3Atrue%2C%22pagesViewed%22%3A2%2C%22landingPage%22%3A%22https%3A//larepublica.pe/politica/actualidad/2023/08/12/pedro-castillo-extienden-investigacion-por-rebelion-hasta-abril-del-2024-838416%22%2C%22referrer%22%3A%22%22%7D; _ga_65B0HP0E17=GS1.1.1691902056.1.1.1691902074.0.0.0; _ga=GA1.1.715588297.1691902057; _ga_K5929ZXSSV=GS1.1.1691902056.1.1.1691902078.38.0.0",
+        "If-None-Match": "\"w0v0ao6lnl5msk\"",
+        "Sec-Ch-Ua": "\"Not/A)Brand\";v=\"99\", \"Microsoft Edge\";v=\"115\", \"Chromium\";v=\"115\"",
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": "\"Windows\"",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
+        # Añade más encabezados aquí si es necesario
+    }
+    html_code = ""
+    try:
+        response = requests.get(url, headers=headers)
+        print(response.status_code)
+        if response.status_code == 200:
+            html_code = response.text
+        else:
+            print("Error al obtener la página:", response.status_code)
+    except requests.exceptions.RequestException as e:
+        print("Error de conexión:", e)
+
+    if len(html_code)>0: 
+        soup = BeautifulSoup(html_code, 'html.parser')
+        article_tag = soup.find('div',class_='st-sidebar__main')
+        # Verificar si se encontró el tag <article>
+        if article_tag:
+            # Obtener el texto del tag <article>
+            article_text = article_tag.get_text()
+            # Imprimir el contenido del texto del tag <article>
+            #print(article_text)
+            update_db(fila[0],fila[1],article_text)
+        
     return ""
+
 
 def update_larepublica(fila):
     #('larepublica', '2Q2K7XOXCFEU3IEHS5NGEKX2NM', '/economia/2021/04/10/expectativas-de-inflacion-se-mantienen-en-el-rango-meta/')
