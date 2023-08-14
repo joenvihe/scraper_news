@@ -130,9 +130,26 @@ def scrape_website(website_code,v_cantidad):
             "Sec-Fetch-Site": "same-origin",
         }
         url_larepublica = url_larepublica.replace("VALOR_LAREPUBLICA",str(v_cantidad))
-        print(url_larepublica)
+        #print(url_larepublica)
         response = requests.get(url_larepublica, headers=headers_larepublica)
-        print(response.json()["articles"]["data"][0])
+        #print(response.json()["articles"]["data"][0])
+        data = response.json()
+        json_list = []
+        for valores in data["articles"]["data"]:
+            json_result = {
+            "periodico": "larepublica",
+            "seccion": "politica",
+            "_id": valores["_id"],
+            "canonical_url": valores["slug"],
+            "display_date": valores["update_date"],
+            "headlines_basic": str(valores["title"]),
+            "subheadlines_basic": str(valores["title"]),
+            "taxonomy_seo_keywords": str(valores["data"]["tags"][0]["name"]),
+            "taxonomy_tags": str(valores["data"]["tags"][0]["name"]),
+            "_type": str(valores["type"])
+            }
+            json_list.append(json_result)
+
     else:
         print('Código de sitio web no válido')
         return
