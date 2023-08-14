@@ -144,8 +144,8 @@ def scrape_website(website_code,v_cantidad):
             "display_date": valores["update_date"],
             "headlines_basic": str(valores["title"]),
             "subheadlines_basic": str(valores["title"]),
-            "taxonomy_seo_keywords": str(valores["data"]["tags"]),
-            "taxonomy_tags": str(valores["data"]["tags"]),
+            "taxonomy_seo_keywords": str(valores["data"]),
+            "taxonomy_tags": str(valores["data"]),
             "_type": str(valores["type"])
             }
             json_list.append(json_result)
