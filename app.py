@@ -136,6 +136,11 @@ def scrape_website(website_code,v_cantidad):
         data = response.json()
         json_list = []
         for valores in data["articles"]["data"]:
+            try:
+                val_sh = str(valores["data"]["teaser"])
+            except Exception as e:
+                val_sh = str(valores["title"])
+                print(e)
             json_result = {
             "periodico": "larepublica",
             "seccion": "politica",
@@ -143,7 +148,7 @@ def scrape_website(website_code,v_cantidad):
             "canonical_url": valores["slug"],
             "display_date": valores["update_date"],
             "headlines_basic": str(valores["title"]),
-            "subheadlines_basic": str(valores["title"]),
+            "subheadlines_basic": val_sh,
             "taxonomy_seo_keywords": str(valores["data"]),
             "taxonomy_tags": str(valores["data"]),
             "_type": str(valores["type"])
