@@ -10,6 +10,37 @@ import json
 
 # 6000 tiene solo titulares
 
+def select_db():
+    # Establecer la conexión a la base de datos
+    conn = psycopg2.connect(
+        dbname= os.environ["HEROKU_DATABASE"],
+        user= os.environ["HEROKU_USER"],
+        password= os.environ["HEROKU_PASSWORD"],
+        host= os.environ["HEROKU_HOST"],  # o la dirección del servidor
+        port="5432"  # el puerto de PostgreSQL
+    )
+
+    # Crear un cursor
+    cursor = conn.cursor()
+
+    # Definir la consulta SQL
+    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null LImit 1000"
+
+    # Ejecutar la consulta
+    cursor.execute(query)
+
+    # Obtener los resultados en una lista de arreglos
+    resultados = cursor.fetchall()
+
+    # Imprimir los resultados
+    for fila in resultados:
+        print(fila)
+
+    # Cerrar el cursor y la conexión
+    cursor.close()
+    conn.close()
+ 
+
 #####################################################################################
 # CODIGO PARA INSERTA A LA BD
 #####################################################################################
@@ -180,4 +211,8 @@ if __name__ == '__main__':
     else:
         website_code = sys.argv[1]
         v_cantidad = sys.argv[2]
-        scrape_website(website_code,v_cantidad)
+        if website_code == "cotenido":
+            select_db()
+        else:
+            scrape_website(website_code,v_cantidad)
+
