@@ -12,7 +12,7 @@ import json
 ########################################################################################
 # PARAMETROS DE LAS URLS A SCRAPEAR
 ########################################################################################
-url_larepublica = "https://larepublica.pe/api/search/articles?category_slug=politica&limit=100&page={}&order_by=update_date"
+url_larepublica = "https://larepublica.pe/api/search/articles?category_slug=politica&limit=100&page=VALOR_LAREPUBLICA&order_by=update_date"
 
 headers_larepublica = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
@@ -135,8 +135,8 @@ def scrape_website(website_code,v_cantidad):
             }
             json_list.append(json_result)
     elif website_code == 'larepublica':
+        url_larepublica = url_larepublica.replace("VALOR_LAREPUBLICA",str(v_cantidad))
         print(url_larepublica)
-        url_larepublica = url_larepublica.format(str(v_cantidad))
         response = requests.get(url_larepublica, headers=headers_larepublica)
         print(response.json())
     else:
