@@ -6,7 +6,7 @@ import requests
 import psycopg2
 import os
 import json
-
+from psycopg2 import sql
 
 def update_db(periodico,id,contenido):
     # Establecer la conexión a la base de datos
@@ -26,7 +26,7 @@ def update_db(periodico,id,contenido):
         UPDATE public.noticias
         SET contenido = '{}'
         WHERE periodico = '{}' and _id = '{}';
-    """.format(periodico,id,contenido)
+    """.format(periodico,id,sql.Literal(contenido))
 
     # Ejecutar la consulta de actualización
     cursor.execute(update_query)
