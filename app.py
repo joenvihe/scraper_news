@@ -211,7 +211,7 @@ if __name__ == '__main__':
     else:
         website_code = sys.argv[1]
         v_cantidad = sys.argv[2]
-        if website_code == "cotenido":
+        if website_code == "contenido":
             select_db()
         else:
             scrape_website(website_code,v_cantidad)
