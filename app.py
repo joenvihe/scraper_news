@@ -78,7 +78,8 @@ def update_elcomercio(fila):
         soup = BeautifulSoup(html_code, 'html.parser')
         article_tag = soup.find('div',class_='st-sidebar__main')
         # Verificar si se encontró el tag <article>
-        if article_tag:
+        print(article_tag)
+        if len(article_tag.strip()):
             # Obtener el texto del tag <article>
             article_text = article_tag.get_text()
             # Imprimir el contenido del texto del tag <article>
