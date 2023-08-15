@@ -79,6 +79,16 @@ if __name__ == '__main__':
         ' 	
 
         """
+ 
+        loaded_text = """
+        periodico = 'larepublica'
+        url = '/politica/pedro-castillo/2023/06/11/jose-gavidia-exministro-de-pedro-castillo-pide-millonaria-indemnizacion-en-libras-esterlinas-773377'
+        fecha = '2023-06-11 21:08:58'
+        contenido = '
+        Política11 Jun 2023 | 21:08 hExministro José Gavidia pide millonaria indemnización al Estado por ser retirado de cargo en LondresMás de 3 millones de soles equivalen a lo que pide el exministro de Defensa ante un juzgado de Piura. Únete al canal de Whatsapp de La RepúblicaCésar Pérez, a quien Fiscalía halló S/360.000 en su casa, se encargará de la alcaldía del CallaoPedro Castillo: extienden investigación por rebelión hasta abril del 2024José Gavidia fue nombrado representante en Londres por Pedro Castillo luego de renunciar a su cargo en el Mindef. Foto: composición LR/Alvaro Lozano/ Mindef/ PresidenciaJessica ArceSiguenos en Google News José Luis Gavidia, quien fue titular del Ministerio de Defensa (Mindef) entre febrero y agosto del 2022 durante el gobierno del hoy vacado Pedro Castillo y, tras ello, designado representante del Perú ante la Organización Marítima Internacional de la ONU en la ciudad de Londres, acudió a un juzgado de trabajo en Piura para exigir al Estado 681.626,80 libras esterlinas (moneda oficial de Reino Unido), que en soles suman más de 3 millones. El dominical de Panorama tuvo acceso al documento de Procuraduría del Ministerio de Defensa en el que se constata que el exministro de Castillo Terrones está exigiendo al Estado el mencionado monto por un periodo de dos daños, que corresponderían a presuntos perjuicios por haber cortado su designación el 1 de marzo del 2023. El medio de comunicación se comunicó con el extitular de Defensa, pero este aseguró no conocer nada sobre ello. PUEDES VER: José Luis Gavidia renunció al Ministerio de Defensa “por motivos personales” Gavidia fue nombrado por Pedro Castillo Cuando Gavidia renunció en agosto del año pasado a su cargo de ministro de Defensa, en medio de la controversia por contratos otorgados a su familia, expresó ante la prensa que estaba afectado emocionalmente. Ante ello, el entonces presiente Pedro Castillo le otorgó el puesto como representante permanente alterno del Perú ante la Organización Marítima Internacional, cargo por el que el Estado gastó alrededor de medio millón de soles contando asignaciones mensuales, pasajes y maletas que Gavidia llevó a este país. A pesar de la salida del poder de Castillo en diciembre del 2022, el exministro continuaba asumiendo el puesto hasta marzo del 2023, cuando fue relevado del cargo por el que ahora pide una millonaria indemnización. Ministerio de DefensaPedro Castillo TerronesPedro CastilloONUÚNETE AL CANAL DE WHATSAPP DE LRRECIBE LAS NOTICIAS EN GOOGLE NEWSOFERTAS DE HOYCargando MgId...	
+        ' 	
+        """
+ 
         # Split the document into chunks
         splits = split_texts(loaded_text, chunk_size=1000,
                             overlap=0, split_method=splitter_type)
