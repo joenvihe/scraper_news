@@ -1,5 +1,5 @@
 BeautifulSoup4
-psycopg2
+psycopg2-binary
 langchain==0.0.144
 openai==0.27.0
 faiss-cpu==1.7.3
