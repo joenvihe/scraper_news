@@ -1,2 +1,7 @@
 BeautifulSoup4
 psycopg2
+langchain==0.0.144
+openai==0.27.0
+faiss-cpu==1.7.3
+tiktoken==0.3.1
+tokenizers==0.13.3
