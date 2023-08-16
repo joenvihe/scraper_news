@@ -191,7 +191,7 @@ def select_db():
     cursor = conn.cursor()
 
     # Definir la consulta SQL
-    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null order by display_date desc  LImit 30000"
+    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null order and seccion='politica' by display_date desc  LImit 30000"
 
     # Ejecutar la consulta
     cursor.execute(query)
