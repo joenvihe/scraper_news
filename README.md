@@ -1,6 +1,11 @@
 # scraper_news
 Escrapeo de periodicos peruanos
 
+'''
+> python3 app.py UCxgO_rak_BKZP8VNVmYqbWg you_exitosa
+> python3 app.py UC5j8-2FT0ZMMBkmK72R4aeA you_rpp
+> python3 app.py contenido 1
+'''
 
 # Estructura de youtube
 {'kind': 'youtube#video', 
