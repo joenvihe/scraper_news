@@ -8,11 +8,22 @@ import os
 import json
 from psycopg2 import sql
 import random
+from youtube_transcript_api import YouTubeTranscriptApi
 from googleapiclient.discovery import build
 
 # Reemplaza con tu propia clave de API
 API_KEY = os.environ["API_KEY_YOUTUBE_DATA"]
 # Crea una instancia del servicio de YouTube Data API
+
+def load_transcript(video_id):
+    # Set your OpenAI API key
+    youtube = build('youtube', 'v3', developerKey=API_KEY)
+    responses = YouTubeTranscriptApi.get_transcript(video_id, languages=['es','en'])
+    all_text = ""
+    for response in responses:
+        all_text = all_text + " " + response['text']
+
+    return all_text
 
 def get_random_user_agent():
     user_agents = [
@@ -179,6 +190,14 @@ def update_larepublica(fila):
         
     return ""
 
+def update_youtube(fila):
+    #('larepublica', '2Q2K7XOXCFEU3IEHS5NGEKX2NM', '/economia/2021/04/10/expectativas-de-inflacion-se-mantienen-en-el-rango-meta/')
+    video_id = fila[1]
+    transcript = load_transcript(video_id)
+    if len(transcript)>0:
+        update_db(fila[0],fila[1],transcript)
+    return ""
+
 # 6000 tiene solo titulares
 
 def select_db():
@@ -195,7 +214,11 @@ def select_db():
     cursor = conn.cursor()
 
     # Definir la consulta SQL
-    query = "select periodico,_id,canonical_url FROM public.noticias where contenido is null and seccion='politica' order by display_date desc  LImit 30000"
+    query = """
+    select periodico,_id,canonical_url FROM public.noticias 
+    where contenido is null and seccion in ('politica','25') 
+    order by display_date desc  LImit 30000
+    """
 
     # Ejecutar la consulta
     cursor.execute(query)
@@ -213,8 +236,8 @@ def select_db():
             update_larepublica(fila)
         elif fila[0]=="elcomercio":
             update_elcomercio(fila)
-
-
+        elif fila[0] in ["exitosa","rpp"]:
+            update_youtube(fila)
  
 
 #####################################################################################
