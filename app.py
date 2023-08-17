@@ -13,7 +13,6 @@ from googleapiclient.discovery import build
 # Reemplaza con tu propia clave de API
 API_KEY = os.environ["API_KEY_YOUTUBE_DATA"]
 # Crea una instancia del servicio de YouTube Data API
-youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 def get_random_user_agent():
     user_agents = [
@@ -385,7 +384,7 @@ def scrape_website(website_code,v_cantidad):
 def get_video_list_channel(channel_id):
     # Inicializar la lista para almacenar los videos
     videos = []
-
+    youtube = build('youtube', 'v3', developerKey=API_KEY)
     # Definir el token de paginación inicial
     next_page_token = None
 
@@ -414,6 +413,7 @@ def get_video_list_channel(channel_id):
 def get_metadata(video_id,nom_channel):
     # Extraer el ID del canal de la URL
     # Realizar la solicitud para obtener la metadata del video
+    youtube = build('youtube', 'v3', developerKey=API_KEY)
     response = youtube.videos().list(
         part='snippet,statistics',
         id=video_id
