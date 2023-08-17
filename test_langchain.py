@@ -73,7 +73,7 @@ if __name__ == '__main__':
 #    WINDOW = "window"
 
         chat_openai = ChatOpenAI(
-            model_name="claude-instant-v1",
+            model_name="gpt-3.5-turbo",
             streaming=True, callback_manager=callback_manager, verbose=True, temperature=0)
         qa = RetrievalQA.from_chain_type(llm=chat_openai, retriever=retriever, chain_type="stuff", verbose=True)
         
