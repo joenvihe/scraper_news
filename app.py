@@ -453,7 +453,7 @@ def scrape_youtube(id_channel,nom_channel):
     l_videos = []
     for video in lista_videos:
         metadata=get_metadata(video,nom_channel) # video es el id del video debe ser un json
-        l_videos.add(metadata)
+        l_videos.append(metadata)
 
     if len(l_videos)>0:
         add_db(l_videos)
