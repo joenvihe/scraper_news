@@ -66,7 +66,14 @@ if __name__ == '__main__':
         callback_handler = StreamingStdOutCallbackHandler()
         callback_manager = CallbackManager([callback_handler])
 
+#    TURBO = "gpt-3.5-turbo"
+#    GPT4 = "gpt-4"
+#    CLAUDE = "claude-v1"
+#    CLAUDE_INSTANT = "claude-instant-v1"
+#    WINDOW = "window"
+
         chat_openai = ChatOpenAI(
+            model_name="claude-instant-v1",
             streaming=True, callback_manager=callback_manager, verbose=True, temperature=0)
         qa = RetrievalQA.from_chain_type(llm=chat_openai, retriever=retriever, chain_type="stuff", verbose=True)
         
