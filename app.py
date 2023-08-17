@@ -12,7 +12,8 @@ from googleapiclient.discovery import build
 
 # Reemplaza con tu propia clave de API
 API_KEY = os.environ["API_KEY_YOUTUBE_DATA"]
-
+# Crea una instancia del servicio de YouTube Data API
+youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 def get_random_user_agent():
     user_agents = [
