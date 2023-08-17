@@ -7,8 +7,12 @@ import psycopg2
 import os
 import json
 from psycopg2 import sql
-
 import random
+from googleapiclient.discovery import build
+
+# Reemplaza con tu propia clave de API
+API_KEY = os.environ["API_KEY_YOUTUBE_DATA"]
+
 
 def get_random_user_agent():
     user_agents = [
@@ -377,11 +381,72 @@ def scrape_website(website_code,v_cantidad):
     else:
         print('La solicitud no fue exitosa. Código de estado:', response.status_code)
 
+def get_video_list_channel(channel_id):
+    # Inicializar la lista para almacenar los videos
+    videos = []
+
+    # Definir el token de paginación inicial
+    next_page_token = None
+
+    # Ciclo para obtener todos los videos del canal
+    while True:
+        # Realizar la solicitud para obtener la lista de videos del canal
+        response = youtube.search().list(
+            part='id',
+            channelId=channel_id,
+            maxResults=50,  # Puedes ajustar la cantidad de videos por solicitud
+            order='date',  # Ordenar por fecha
+            pageToken=next_page_token
+        ).execute()
+
+        # Agregar los IDs de video a la lista
+        for item in response['items']:
+            videos.append(item['id']['videoId'])
+
+        # Verificar si hay más páginas de resultados
+        next_page_token = response.get('nextPageToken')
+        if not next_page_token:
+            break
+    #videos = validar_no_repetir()
+    return videos
+
+def get_metadata(video_id,nom_channel):
+    # Extraer el ID del canal de la URL
+    # Realizar la solicitud para obtener la metadata del video
+    response = youtube.videos().list(
+        part='snippet,statistics',
+        id=video_id
+    ).execute()
+    # Extraer la información relevante de la respuesta
+    video_info = response['items'][0]
+    resultado = {
+        "periodico": str(nom_channel),
+        "seccion": video_info["snippet"]["categoryId"],
+        "_id": video_info["id"],
+        "canonical_url": video_info["id"],
+        "display_date": video_info["snippet"]["publishedAt"],
+        "headlines_basic": str(video_info["snippet"]["title"]),
+        "subheadlines_basic": str(video_info["snippet"]["description"]),
+        "taxonomy_seo_keywords": str(video_info["statistics"]["viewCount"]),
+        "taxonomy_tags": str(video_info["snippet"]["commentCount"]),
+        "_type": str(video_info["statistics"]["viewCount"])
+    }
+    return resultado
+
+def scrape_youtube(id_channel,nom_channel):
+    # en el caso de youtube el website_code es el ID_CHANNEL
+    lista_videos = get_video_list_channel(id_channel)
+    l_videos = []
+    for video in lista_videos:
+        metadata=get_metadata(video,nom_channel) # video es el id del video debe ser un json
+        l_videos.add(metadata)
+
+    if len(l_videos)>0:
+        add_db(l_videos)
+
 #####################################################################################
 # MAIN PRINCIPAL
 #####################################################################################
-
-
 if __name__ == '__main__':
     if len(sys.argv) != 3:
         print('Uso: python script.py <código_del_sitio_web>')
@@ -390,6 +455,12 @@ if __name__ == '__main__':
         v_cantidad = sys.argv[2]
         if website_code == "contenido":
             select_db()
+        if v_cantidad[] == "you":
+            #s= "you_EXITOSA"
+            #print(s[:3]) #you
+            #print(s[4:]) #EXITOSA
+            #website_Code es el id_channel
+            scrape_youtube(website_code,v_cantidad[4:])
         else:
             scrape_website(website_code,v_cantidad)
 
