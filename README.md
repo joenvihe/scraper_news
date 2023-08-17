@@ -5,6 +5,8 @@ Escrapeo de periodicos peruanos
 > python3 app.py UCxgO_rak_BKZP8VNVmYqbWg you_exitosa
 > python3 app.py UC5j8-2FT0ZMMBkmK72R4aeA you_rpp
 > python3 app.py contenido 1
+> python3 app.py elcomercio 0
+> python3 app.py larepublica 0
 '''
 
 # Estructura de youtube
