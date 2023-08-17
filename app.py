@@ -420,6 +420,19 @@ def get_metadata(video_id,nom_channel):
     ).execute()
     # Extraer la información relevante de la respuesta
     video_info = response['items'][0]
+    try:
+        tsk = str(video_info["statistics"]["viewCount"])
+    except Exceiption as e:
+        tsk=""
+    try:
+        tt = str(video_info["statistics"]["commentCount"])
+    except Exceiption as e:
+        tt=""
+    try:
+        _t = str(video_info["statistics"]["viewCount"])
+    except Exceiption as e:
+        _t=""
+
     resultado = {
         "periodico": str(nom_channel),
         "seccion": video_info["snippet"]["categoryId"],
@@ -428,9 +441,9 @@ def get_metadata(video_id,nom_channel):
         "display_date": video_info["snippet"]["publishedAt"],
         "headlines_basic": str(video_info["snippet"]["title"]),
         "subheadlines_basic": str(video_info["snippet"]["description"]),
-        "taxonomy_seo_keywords": str(video_info["statistics"]["viewCount"]),
-        "taxonomy_tags": str(video_info["snippet"]["commentCount"]),
-        "_type": str(video_info["statistics"]["viewCount"])
+        "taxonomy_seo_keywords": str(tsk),
+        "taxonomy_tags": str(tt),
+        "_type": str(_t)
     }
     return resultado
 
