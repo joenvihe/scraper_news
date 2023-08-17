@@ -1,15 +1,24 @@
 # scraper_news
 Escrapeo de periodicos peruanos
 
-'''
+# enlaces
+https://python.langchain.com/docs/use_cases/extraction
+https://github.com/amrrs/csvchat-langchain/blob/main/Chat_with_CSV_%26_Excel_using_LangChain_and_OpenAI.ipynb
+https://github.com/openai/openai-cookbook/blob/main/examples/Whisper_processing_guide.ipynb
+
+
+# ejecuciones
+
+```
 > python3 app.py UCxgO_rak_BKZP8VNVmYqbWg you_exitosa
 > python3 app.py UC5j8-2FT0ZMMBkmK72R4aeA you_rpp
 > python3 app.py contenido 1
 > python3 app.py elcomercio 0
 > python3 app.py larepublica 0
-'''
+```
 
 # Estructura de youtube
+```
 {'kind': 'youtube#video', 
   'etag': 'Fj1_UNe9n-Tet9hskB7-l_k_VYI', 
   'id': 'COFWlKLu45E', 
@@ -41,3 +50,4 @@ Escrapeo de periodicos peruanos
         'favoriteCount': '0', 
         'commentCount': '120'}
 }
+```
