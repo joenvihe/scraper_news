@@ -455,7 +455,7 @@ if __name__ == '__main__':
         v_cantidad = sys.argv[2]
         if website_code == "contenido":
             select_db()
-        if v_cantidad[] == "you":
+        if v_cantidad[:3] == "you":
             #s= "you_EXITOSA"
             #print(s[:3]) #you
             #print(s[4:]) #EXITOSA
