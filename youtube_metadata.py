@@ -21,17 +21,7 @@ if __name__ == '__main__':
 
         # Extraer la información relevante de la respuesta
         video_info = response['items'][0]
-        video_title = video_info['snippet']['title']
-        video_description = video_info['snippet']['description']
-        view_count = video_info['statistics']['viewCount']
-        like_count = video_info['statistics']['likeCount']
-        dislike_count = video_info['statistics']['dislikeCount']
-        comment_count = video_info['statistics']['commentCount']
 
         # Imprimir la metadata del video
-        print(f'Título del video: {video_title}')
-        print(f'Descripción del video: {video_description}')
-        print(f'Vistas: {view_count}')
-        print(f'Likes: {like_count}')
-        print(f'Dislikes: {dislike_count}')
-        print(f'Comentarios: {comment_count}')
+        print(video_info)
+        
