@@ -20,16 +20,6 @@ if __name__ == '__main__':
         ).execute()
 
         # Extraer la información relevante de la respuesta
-        channel_info = response['items'][0]
-        channel_title = channel_info['snippet']['title']
-        channel_description = channel_info['snippet']['description']
-        subscriber_count = channel_info['statistics']['subscriberCount']
-        video_count = channel_info['statistics']['videoCount']
-        view_count = channel_info['statistics']['viewCount']
-
-        # Imprimir la metadata del canal
-        print(f'Título del canal: {channel_title}')
-        print(f'Descripción del canal: {channel_description}')
-        print(f'Cantidad de suscriptores: {subscriber_count}')
-        print(f'Cantidad de videos: {video_count}')
-        print(f'Total de vistas: {view_count}')
+        print("################################3")
+        print(response)
+        print("################################3")
