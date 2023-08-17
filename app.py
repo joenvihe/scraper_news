@@ -194,6 +194,7 @@ def update_larepublica(fila):
 
 def update_youtube(fila):
     #('larepublica', '2Q2K7XOXCFEU3IEHS5NGEKX2NM', '/economia/2021/04/10/expectativas-de-inflacion-se-mantienen-en-el-rango-meta/')
+    print(fila)
     video_id = fila[1]
     transcript = load_transcript(video_id)
     if len(transcript)>0:
