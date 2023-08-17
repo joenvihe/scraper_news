@@ -18,11 +18,13 @@ API_KEY = os.environ["API_KEY_YOUTUBE_DATA"]
 def load_transcript(video_id):
     # Set your OpenAI API key
     youtube = build('youtube', 'v3', developerKey=API_KEY)
-    responses = YouTubeTranscriptApi.get_transcript(video_id, languages=['es','en'])
     all_text = ""
-    for response in responses:
-        all_text = all_text + " " + response['text']
-
+    try:
+        responses = YouTubeTranscriptApi.get_transcript(video_id, languages=['es','en'])
+        for response in responses:
+            all_text = all_text + " " + response['text']
+    except Exception as e:
+        print(e)
     return all_text
 
 def get_random_user_agent():
