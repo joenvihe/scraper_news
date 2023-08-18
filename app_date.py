@@ -83,7 +83,7 @@ def split_texts(text, chunk_size, overlap, split_method):
     return splits
 
 # selecciona las noticias por la BD
-def get_noticias():
+def get_noticias(n_anho,n_mes):
     # Establecer la conexión a la base de datos
     conn = psycopg2.connect(
         dbname= os.environ["HEROKU_DATABASE"],
@@ -101,10 +101,10 @@ def get_noticias():
     SELECT DISTINCT periodico,_id,contenido  
     FROM public.noticias 
     WHERE contenido IS NOT NULL and noticias_json IS NULL
-    AND EXTRACT(YEAR FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 2023
-    AND EXTRACT(MONTH FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 8
+    AND EXTRACT(YEAR FROM TO_DATE(display_date, 'YYYY-MM-dd')) = {}
+    AND EXTRACT(MONTH FROM TO_DATE(display_date, 'YYYY-MM-dd')) = {}
     limit 700
-    """
+    """.format(n_anho,n_mes)
 
     # Ejecutar la consulta
     cursor.execute(query)
@@ -148,17 +148,22 @@ def generate_json(contenido):
 # MAIN PRINCIPAL
 #####################################################################################
 if __name__ == '__main__':
-    lista_noticias = get_noticias()
-    for noticia in lista_noticias:
-        periodico = noticia[0]
-        id = noticia[1]
-        contenido = noticia[2]
-        resultado = generate_json(contenido)
-        if es_json(resultado):
-            update_db(periodico,id,resultado)
-        else:
-            print("ERROOOOOOOOOOOOOOOOOOORRRRRRRRRRR")
-            print(resultado)
+    if len(sys.argv) != 3:
+        print('Uso: python script.py <código_del_sitio_web>')
+    else:
+        n_anho = sys.argv[1]
+        n_mes = sys.argv[2]
+        lista_noticias = get_noticias(n_anho,n_mes)
+        for noticia in lista_noticias:
+            periodico = noticia[0]
+            id = noticia[1]
+            contenido = noticia[2]
+            resultado = generate_json(contenido)
+            if es_json(resultado):
+                update_db(periodico,id,resultado)
+            else:
+                print("ERROOOOOOOOOOOOOOOOOOORRRRRRRRRRR")
+                print(resultado)
 
 # generar langchain
 # guardar la data actualizada
