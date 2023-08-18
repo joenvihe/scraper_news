@@ -4,7 +4,7 @@ a partir del texto, generame un listado que sea de clave y valor, que contenga l
 - clave "1 palabra" y como valor define en 1 palabra el texto y luego despues de un ; defines el porque elegiste esa palabra
 - clave "ideas principales" y como valor las 5 ideas mas importantes del texto
 - clave "palabras claves" y como valor las palabras claves mas importantes del texto
-- clave "categoria" y como valor clasifica la noticia en las siguientes categorias: politica, policial, economica, salud y otros; si colocas la categoria otros, luego de un  define un nuevo nombre para la categoria
+- clave "categoria" y como valor clasifica la noticia en las siguientes categorias: politica, policial, economica, salud y otros; si colocas la categoria otros, luego de un ; define un nuevo nombre para la categoria
 - clave "entidades" y como valor me vas a traer las entidades mas relevantes mencionadas en el texto, el nombre, el tipo de entidad, descripción, que se habla y  sus propiedad detallada que se mencionan, detalla los nombres propios que aparezcan de la entidad 
 
 el resultado arrojalo en un formato json
