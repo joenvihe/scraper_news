@@ -103,6 +103,7 @@ def get_noticias():
     WHERE contenido IS NOT NULL and noticias_json IS NULL
     AND EXTRACT(YEAR FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 2023
     AND EXTRACT(MONTH FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 8
+    limit 50
     """
 
     # Ejecutar la consulta
@@ -158,7 +159,7 @@ if __name__ == '__main__':
         else:
             print("ERROOOOOOOOOOOOOOOOOOORRRRRRRRRRR")
             print(resultado)
-        break
+
 # generar langchain
 # guardar la data actualizada
 
