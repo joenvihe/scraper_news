@@ -218,7 +218,7 @@ def select_db():
 
     # Definir la consulta SQL
     query = """
-    select periodico,_id,canonical_url FROM public.noticias 
+    select distinct periodico,_id,canonical_url FROM public.noticias 
     where contenido is null and seccion in ('politica','25') 
     order by display_date desc  LImit 30000
     """
