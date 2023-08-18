@@ -26,7 +26,7 @@ def es_json(texto):
 
 def update_db(periodico,id_registro,nuevo_valor_json):
     # Establecer la conexión a la base de datos
-    conn = psycopg2.connect(
+    conexion = psycopg2.connect(
         dbname= os.environ["HEROKU_DATABASE"],
         user= os.environ["HEROKU_USER"],
         password= os.environ["HEROKU_PASSWORD"],
