@@ -103,7 +103,7 @@ def get_noticias(n_anho,n_mes):
     WHERE contenido IS NOT NULL and noticias_json IS NULL
     AND EXTRACT(YEAR FROM TO_DATE(display_date, 'YYYY-MM-dd')) = {}
     AND EXTRACT(MONTH FROM TO_DATE(display_date, 'YYYY-MM-dd')) = {}
-    limit 700
+    limit 3000
     """.format(n_anho,n_mes)
 
     # Ejecutar la consulta
