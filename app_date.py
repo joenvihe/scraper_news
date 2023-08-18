@@ -22,7 +22,37 @@ def es_json(texto):
         return True
     except ValueError:
         return False
-    
+
+
+def update_db(periodico,id_registro,nuevo_valor_json):
+    # Establecer la conexión a la base de datos
+    conn = psycopg2.connect(
+        dbname= os.environ["HEROKU_DATABASE"],
+        user= os.environ["HEROKU_USER"],
+        password= os.environ["HEROKU_PASSWORD"],
+        host= os.environ["HEROKU_HOST"],  # o la dirección del servidor
+        port="5432"  # el puerto de PostgreSQL
+    )
+
+    # Consulta de actualización
+    consulta = """
+        UPDATE public.noticias
+        SET noticias_json = %s
+        WHERE periodico = %s and _id = %s
+    """
+
+    # Ejecutar la consulta
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute(consulta, (json.dumps(nuevo_valor_json), periodico, id_registro))
+            conexion.commit()
+            print("Actualización exitosa")
+    except psycopg2.Error as e:
+        print("Error al actualizar:", e)
+    finally:
+        conexion.close()
+    return ""
+
 def create_retriever(_embeddings, splits, retriever_type):
     if retriever_type == "SIMILARITY SEARCH":
         try:
@@ -122,7 +152,7 @@ if __name__ == '__main__':
         contenido = noticia[2]
         resultado = generate_json(contenido)
         if es_json(resultado):
-            print(resultado)
+            update_db(periodico,id,resultado)
         else:
             print("ERROOOOOOOOOOOOOOOOOOORRRRRRRRRRR")
             print(resultado)
