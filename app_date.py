@@ -98,7 +98,9 @@ def get_noticias():
 
     # Definir la consulta SQL
     query = """
-    SELECT DISTINCT periodico,_id,contenido  FROM public.noticias WHERE contenido IS NOT NULL
+    SELECT DISTINCT periodico,_id,contenido  
+    FROM public.noticias 
+    WHERE contenido IS NOT NULL and noticias_json IS NOT NULL AND
     AND EXTRACT(YEAR FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 2023
     AND EXTRACT(MONTH FROM TO_DATE(display_date, 'YYYY-MM-dd')) = 8
     """
