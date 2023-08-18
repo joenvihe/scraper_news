@@ -2,9 +2,9 @@
 Escrapeo de periodicos peruanos
 
 # enlaces
-https://python.langchain.com/docs/use_cases/extraction
-https://github.com/amrrs/csvchat-langchain/blob/main/Chat_with_CSV_%26_Excel_using_LangChain_and_OpenAI.ipynb
-https://github.com/openai/openai-cookbook/blob/main/examples/Whisper_processing_guide.ipynb
+- https://python.langchain.com/docs/use_cases/extraction
+- https://github.com/amrrs/csvchat-langchain/blob/main/Chat_with_CSV_%26_Excel_using_LangChain_and_OpenAI.ipynb
+- https://github.com/openai/openai-cookbook/blob/main/examples/Whisper_processing_guide.ipynb
 
 
 # ejecuciones
@@ -15,6 +15,7 @@ https://github.com/openai/openai-cookbook/blob/main/examples/Whisper_processing_
 > python3 app.py contenido 1
 > python3 app.py elcomercio 0
 > python3 app.py larepublica 0
+> python3 scraper_news/test_langchain.py textos/q.txt textos/c20.txt
 ```
 
 # Estructura de youtube
