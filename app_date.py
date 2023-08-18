@@ -1,4 +1,4 @@
-
+import sys
 import psycopg2
 import os
 from langchain.text_splitter import RecursiveCharacterTextSplitter
