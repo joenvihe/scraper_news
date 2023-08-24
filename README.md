@@ -181,3 +181,43 @@ if last_conversation:
   "especialidad": "Cardiología"
 }
 ```
+
+
+# Entender fragmento de la conversacion
+
+```
+# Obtener la última conversación del cliente
+last_conversation = session.get_last_conversation()
+
+# Analizar la última conversación
+if "grano" in last_conversation:
+    # Recomendar atención básica
+    response = "Le recomiendo que lave la zona afectada con agua y jabón y que aplique una loción antibiótica. Si los síntomas no mejoran, debe consultar a un médico de familia."
+
+    # Recomendar especialidad
+    response += "La especialidad que le puede atender es dermatología."
+
+    # Ofrecer cita
+    response += "¿Le gustaría programar una cita con un dermatólogo?"
+
+    # Obtener la respuesta del cliente
+    response = chatgpt.generate_response(response)
+
+    # Procesar la respuesta del cliente
+    if "sí" in response:
+        # Programar cita
+        response = "En ese caso, le puedo programar una cita con un dermatólogo para mañana a las 10:00 horas. ¿Le parece bien?"
+        response = chatgpt.generate_response(response)
+
+        # Obtener la respuesta del cliente
+        response = chatgpt.generate_response(response)
+
+        # Si el cliente acepta la cita, se envía un mensaje a WhatsApp
+        if "sí" in response:
+            pywhatkit.sendwhatsapp_message(chat_id, response)
+    else:
+        # Si el cliente no acepta la cita, se finaliza la conversación
+        response = "Entendido. ¿Hay algo más en lo que pueda ayudarle?"
+        response = chatgpt.generate_response(response)
+
+```
