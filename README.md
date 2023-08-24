@@ -52,3 +52,132 @@ Escrapeo de periodicos peruanos
         'commentCount': '120'}
 }
 ```
+
+# Codigo de conversación de whatsapp con langchain
+
+```
+import logging
+import langchain
+import weaviate
+import pywhatkit
+
+# Configuración del logger
+logging.basicConfig(
+    format="%(asctime)s %(levelname)-8s %(message)s",
+    level=logging.INFO,
+)
+
+# Importar los datos
+with open("data.json", "r") as f:
+    data = json.load(f)
+
+# Crear una conexión a Weaviate
+client = weaviate.Client(host="localhost", port=8080)
+
+# Crear una colección en Weaviate
+collection = client.create_collection("citas")
+
+# Importar los datos a Weaviate
+for cita in data:
+    collection.create_document(cita)
+
+# Crear una instancia de ChatGPT
+chatgpt = langchain.ChatGPT(api_key="YOUR_API_KEY")
+
+# Establecer el tema del chatbot
+chatgpt.set_topic("asistente virtual de clinica")
+
+# Establecer la temperatura de ChatGPT a cero
+chatgpt.temperature = 0
+
+# Crear una instancia de ChatSession
+session = chatgpt.ChatSession()
+
+# Obtener el ID del chat de WhatsApp
+chat_id = pywhatkit.get_my_whatsapp_id()
+
+# Cargar la conversación del archivo JSON
+with open("chat_log.json", "r") as f:
+    messages = json.load(f)
+
+# Actualizar la sesión con la conversación
+session.messages = messages
+
+# Iniciar la conversación
+while True:
+    # Obtener el mensaje de WhatsApp
+    message = pywhatkit.get_message_from_whatsapp(chat_id)
+
+    # Procesar el mensaje de WhatsApp
+    response = chatgpt.generate_response(message)
+
+    # Guardar la conversación en la sesión
+    session.store_message(message, response)
+
+    # Enviar la respuesta a WhatsApp
+    pywhatkit.sendwhatsapp_message(chat_id, response)
+
+    # Detectar errores
+    if not response:
+        logging.error("No se pudo generar una respuesta")
+        break
+
+    # Detectar finalización de la conversación
+    if "Gracias" in response or "Adiós" in response:
+        break
+
+# Guardar la conversación en el archivo JSON
+with open("chat_log.json", "w") as f:
+    f.write(json.dumps(session.messages))
+
+# Obtener el nombre del cliente
+name = session.get_user_name()
+
+# Saludar al cliente
+if name:
+    greeting = f"Hola {name}, ¿en qué te puedo ayudar?"
+else:
+    greeting = "Hola, ¿en qué te puedo ayudar?"
+
+# Imprimir el saludo
+print(greeting)
+
+# Obtener la última conversación del cliente
+last_conversation = session.get_last_conversation()
+
+# Mostrar la última conversación al cliente
+if last_conversation:
+    print(f"En nuestra última conversación, hablamos sobre {last_conversation}")
+    
+```
+
+# Estructura de Vector BD
+```
+{
+  "especialidad": "Cardiología",
+  "médico": "Dr. Juan Pérez",
+  "horario": "Lunes a viernes de 8:00 a 12:00 horas y de 14:00 a 18:00 horas",
+  "citas": [
+    {
+      "cliente": "María López",
+      "fecha": "2023-08-25",
+      "hora": "9:00 horas"
+    },
+    {
+      "cliente": "Juan Pérez",
+      "fecha": "2023-08-26",
+      "hora": "10:00 horas"
+    }
+  ]
+}
+{
+  "cliente": {
+    "nombre": "María López",
+    "apellidos": "Pérez",
+    "edad": 35,
+    "sexo": "Femenino",
+    "dirección": "Calle 123, 4567, Ciudad de México"
+  },
+  "especialidad": "Cardiología"
+}
+```
